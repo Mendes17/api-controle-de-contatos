@@ -1,0 +1,7 @@
+package br.com.hcm.ApiRestControleDeContatos.exception;
+
+public class MalaDiretaException extends IllegalArgumentException {
+	
+	public MalaDiretaException() { super("Os demais objetos(endereco, cep, cidade ou uf) não foram preenchidos corretamente"); }
+	
+}

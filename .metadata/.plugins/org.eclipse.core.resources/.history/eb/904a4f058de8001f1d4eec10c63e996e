@@ -1,0 +1,5 @@
+package br.com.hcm.ApiRestControleDeContatos.dto;
+
+public class PessoaDTO {
+
+}

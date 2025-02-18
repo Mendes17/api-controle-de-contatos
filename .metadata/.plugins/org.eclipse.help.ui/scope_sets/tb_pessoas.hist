@@ -1,0 +1,6 @@
+#Sun Feb 16 21:35:52 BRT 2025
+__DEFAULT__=false
+expression=tb_pessoas
+org.eclipse.help.ui.localSearch.master=true
+org.eclipse.sdk.Eclipse.master=true
+org.eclipse.sdk.Google.master=true

@@ -1,0 +1,20 @@
+package br.com.hcm.ApiRestControleDeContatos.infra;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import br.com.hcm.ApiRestControleDeContatos.exception.NullException;
+
+@ControllerAdvice
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+	@ExceptionHandler(NullException.class)
+	private ResponseEntity<RestErrorMessage> nullExceptionHandler(NullException exception) {
+		RestErrorMessage message = new RestErrorMessage(HttpStatus.BAD_REQUEST,	exception.getMessage());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+	}
+	
+}

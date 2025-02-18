@@ -1,0 +1,53 @@
+package br.com.hcm.ApiRestControleDeContatos.infra;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import br.com.hcm.ApiRestControleDeContatos.exception.EntityException;
+import br.com.hcm.ApiRestControleDeContatos.exception.IndexArrayException;
+import br.com.hcm.ApiRestControleDeContatos.exception.NullException;
+import jakarta.validation.ValidationException;
+
+@ControllerAdvice
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+	@ExceptionHandler(NullException.class)
+	private ResponseEntity<RestErrorMessage> nullExceptionHandler(NullException exception) {
+		RestErrorMessage message = new RestErrorMessage(HttpStatus.BAD_REQUEST,	exception.getMessage());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
+	}
+	
+	@ExceptionHandler(IndexArrayException.class)
+	private ResponseEntity<RestErrorMessage> indexArrayException(IndexArrayException exception) {
+		RestErrorMessage message = new RestErrorMessage(HttpStatus.NOT_FOUND,	exception.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+	}
+	
+	@ExceptionHandler(EntityException.class)
+	private ResponseEntity<RestErrorMessage> entityException(EntityException exception) {
+		RestErrorMessage message = new RestErrorMessage(HttpStatus.NOT_FOUND,	exception.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+	}
+	
+	  // Exceção Genérica
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleException(Exception e) {
+        return new ResponseEntity<>("Ocorreu um erro interno no servidor: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // Exceções específicas (exemplo)
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<String> handleValidationException(ValidationException e) {
+        return new ResponseEntity<>("Erro de validação: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    // Exceção para erros personalizados do Spring
+    @ExceptionHandler(org.springframework.web.bind.MissingServletRequestParameterException.class)
+    public ResponseEntity<String> handleMissingParamException(org.springframework.web.bind.MissingServletRequestParameterException e) {
+        return new ResponseEntity<>("Parâmetro ausente: " + e.getParameterName(), HttpStatus.BAD_REQUEST);
+    }
+	
+}

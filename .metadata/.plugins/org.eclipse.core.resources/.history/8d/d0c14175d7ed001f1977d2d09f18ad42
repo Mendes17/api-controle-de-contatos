@@ -1,0 +1,40 @@
+package br.com.hcm.ApiRestControleDeContatos.example;
+
+public class ContatoSwaggerExample {
+	
+	public static final String POST_CONTATO_EXAMPLE = "{" // exemplo json post-contato
+            + "\"tipoContato\": \"CELULAR\", "
+            + "\"contato\": \"11 9865-8220\", "
+            + "\"pessoa\": {\"id\": 1}"
+            + "}";
+	
+	public static final String GET_200_CONTATO_EXAMPLE = "{" // exemplo retorno 
+            + "\"id\": 1, "
+            + "\"tipoContato\": \"CELULAR\", "
+            + "\"contato\": \"11 9865-8220\", "
+            + "\"pessoa\": {\"id\": 1, "
+            + "\"nome\": \"null\", "
+            + "\"endereco\": \"null\", "
+            + "\"cep\": \"null\", "
+            + "\"cidade\": \"null\", "
+            + "\"uf\": \"null\""
+            + "}"
+            + "}";
+	
+	public static final String ERRO_400_TIPO_CONTATO_EXAMPLE = "{" // exemplo json erro 400
+            + "\"status\": \"BAD_REQUEST\", "
+            + "\"message\": \"tipo contato não pode ser nulo!\"}";
+	
+	public static final String ERRO_400_CONTATO_EXAMPLE = "{" // exemplo json erro 400
+            + "\"status\": \"BAD_REQUEST\", "
+            + "\"message\": \"tipo contato não pode ser nulo!\"}";
+	
+	public static final String ERRO_404_CONTATO_EXAMPLE = "{" // exemplo json erro 404
+            + "\"status\": \"NOT_FOUND\", "
+            + "\"message\": \"id não encontrado!\"}";
+	
+	public static final String ERRO_404_CONTATO_PESSOA_EXAMPLE = "{" // exemplo json erro 404
+            + "\"status\": \"NOT_FOUND\", "
+            + "\"message\": \"a pessoa não tem nenhum tipo de contato\"}";
+	
+}

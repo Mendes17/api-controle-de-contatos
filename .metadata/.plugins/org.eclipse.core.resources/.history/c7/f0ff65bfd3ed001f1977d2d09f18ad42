@@ -1,0 +1,28 @@
+package br.com.hcm.ApiRestControleDeContatos.example;
+
+public class ContatoSwaggerExample {
+	
+	public static final String POST_CONTATO_EXAMPLE = "{" // exemplo json post-contato
+            + "\"tipoContato\": \"CELULAR\", "
+            + "\"contato\": \"11 9865-8220\", "
+            + "\"pessoa\": {\"id\": 1}"
+            + "}";
+	
+	public static final String POST_RESPONSE_CONTATO_EXAMPLE = "{" // exemplo retorno 
+            + "\"id\": 1, "
+            + "\"tipoContato\": \"CELULAR\", "
+            + "\"contato\": \"11 9865-8220\", "
+            + "\"pessoa\": {\"id\": 1, "
+            + "\"nome\": \"null\", "
+            + "\"endereco\": \"null\", "
+            + "\"cep\": \"null\", "
+            + "\"cidade\": \"null\", "
+            + "\"uf\": \"null\""
+            + "}"
+            + "}";
+	
+	public static final String ERRO_400_CONTATO_EXAMPLE = "{" // exemplo json erro 400 post-pessoa
+            + "\"status\": \"BAD_REQUEST\", "
+            + "\"message\": \"Nome não pode ser nulo!\"}";
+	
+}

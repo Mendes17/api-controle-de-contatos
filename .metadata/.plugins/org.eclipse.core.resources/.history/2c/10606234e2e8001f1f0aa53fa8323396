@@ -1,0 +1,22 @@
+package br.com.hcm.ApiRestControleDeContatos.dto;
+
+import org.springframework.beans.BeanUtils;
+
+import br.com.hcm.ApiRestControleDeContatos.model.Pessoas;
+
+public class PessoaDTO {
+	
+	private Long id;
+	private String nome;
+	private String endereco;
+	private String cep;
+	private String cidade;
+	private String uf;
+	
+	public PessoaDTO(Pessoas pessoa) {
+		BeanUtils.copyProperties(pessoa, this);
+	}
+	
+	public PessoaDTO() {}
+	
+}

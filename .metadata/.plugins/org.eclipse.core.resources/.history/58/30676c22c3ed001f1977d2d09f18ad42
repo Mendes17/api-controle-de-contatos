@@ -1,0 +1,117 @@
+package br.com.hcm.ApiRestControleDeContatos.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.hcm.ApiRestControleDeContatos.config.SwaggerExamples;
+import br.com.hcm.ApiRestControleDeContatos.dto.PessoaDto;
+import br.com.hcm.ApiRestControleDeContatos.model.Pessoas;
+import br.com.hcm.ApiRestControleDeContatos.service.PessoaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+@RestController
+@RequestMapping("/api/pessoas") // http://localhost:8080/api/pessoas
+public class PessoasController {
+
+//	requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+//			content = @Content(mediaType = "application/json", examples = {
+//					@ExampleObject( // formatando o json no swagger
+//							name = "Exemplo POST-PESSOA",
+//							value = "{\"nome\": \"Henrique\", \"endereco\": \"Rua das Flores, 555\", \"cep\": \"05050-555\", \"cidade\": \"Osasco\", \"uf\": \"SP\"}")}) ))
+	
+	@Autowired
+	private PessoaService pessoaService;
+
+	@Operation(summary = "Este endpoint adiciona uma nova pessoa ao banco de dados.", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+			content = @Content(mediaType = "application/json", examples = {
+					@ExampleObject( // exemplo json para inserir uma pessoa
+							name = "Exemplo POST-PESSOA",
+							value = SwaggerExamples.POST_PESSOA_EXAMPLE)})))
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Pessoa adicionada com sucesso!", content = @Content(mediaType = "application/json", examples = {
+					@ExampleObject( // exemplo json retorno erro 200 post-pessoa
+							name = "Exemplo erro 200",
+							value = SwaggerExamples.POST_200_PESSOA_EXAMPLE)})),
+			@ApiResponse(responseCode = "400", description = "Nome nulo", content = @Content(mediaType = "application/json", examples = {
+					@ExampleObject( // exemplo json retorno erro 400 post-pessoa
+							name = "Exemplo erro 400",
+							value = SwaggerExamples.POST_400_PESSOA_EXAMPLE)})),
+	})
+	@PostMapping // POST http://localhost:8080/api/pessoas
+	public ResponseEntity<Pessoas> save(@RequestBody Pessoas pessoa) {
+		Pessoas newPessoa = pessoaService.save(pessoa);
+		return ResponseEntity.ok(newPessoa);
+	}
+
+	@Operation(summary = "Este endpoint retorna todas as pessoas que estão no banco de dados.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Sucesso",content = @Content(mediaType = "application/json", examples = {
+				@ExampleObject( // exemplo json retorno erro 404 get-pessoa-findAll
+						name = "Exemplo erro 200",
+						value = SwaggerExamples.GET_200_PESSOA_FINDALL_EXAMPLE)})),
+		@ApiResponse(responseCode = "404", description = "Nenhuma pessoa adicionada no banco de dados", content = @Content(mediaType = "application/json", examples = {
+				@ExampleObject( // exemplo json retorno erro 404 get-pessoa-findAll
+						name = "Exemplo erro 404",
+						value = SwaggerExamples.GET_404_PESSOA_FINDALL_EXAMPLE)}))
+	})
+	@GetMapping // GET http://localhost:8080/api/pessoas
+	public ResponseEntity<List<Pessoas>> findAll() {
+		List<Pessoas> pessoas = pessoaService.findAll();
+		return ResponseEntity.ok(pessoas);
+	}
+
+	@Operation(summary = "Este endpoint retorna uma pessoa pelo id")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso", content = @Content(mediaType = "application/json", examples = {
+					@ExampleObject( // exemplo json retorno erro 200 get-pessoa-findById
+							name = "Exemplo erro 200",
+							value = SwaggerExamples.GET_200_PESSOA_FINDBYID_EXAMPLE)})),
+			@ApiResponse(responseCode = "404", description = "Caso id não seja encontrado", content = @Content(mediaType = "application/json", examples = {
+				@ExampleObject( // exemplo json retorno erro 404 get-pessoa-findAll
+						name = "Exemplo erro 404",
+						value = SwaggerExamples.GET_404_PESSOA_FINDALL_EXAMPLE)}))
+	})
+	@GetMapping("/{id}") // GET http://localhost:8080/api/pessoas/{id}
+	public ResponseEntity<Optional<Pessoas>> findById(@PathVariable Long id) {
+		Optional<Pessoas> pessoa = pessoaService.findById(id);
+		return ResponseEntity.ok(pessoa);
+	}
+
+	@Operation(summary = "Este endpoint retorna uma pessoa através do id informado e devolve somente [nome, endereço, cep, cidade e uf].")
+	@GetMapping("/maladireta/{id}") // GET http://localhost:8080/api/pessoas/maladireta/{id}
+	public ResponseEntity<Optional<PessoaDto>> malaDireta(@PathVariable Long id) {
+		Optional<PessoaDto> pessoaDto = pessoaService.findByIdMalaDireta(id);
+		return ResponseEntity.ok(pessoaDto);
+
+	}
+
+	@Operation(summary = "Este endpoint atualiza os dados da pessoa, deve ser informado o id e a pessoa deve existir no banco de dados!")
+	@PutMapping("/{id}") // PUT http://localhost:8080/api/pessoas/{id}
+	public ResponseEntity<Pessoas> update(@PathVariable Long id, @RequestBody Pessoas pessoa) {
+		pessoa.setId(id);
+		Pessoas upPessoa = pessoaService.update(pessoa);
+		return ResponseEntity.ok(upPessoa);
+	}
+
+	@Operation(summary = "Este endpoint deleta os dados da pessoa no banco de dados apartir do id informado.")
+	@DeleteMapping("/{id}") // DELETE http://localhost:8080/api/pessoas/{id}
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		pessoaService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+}

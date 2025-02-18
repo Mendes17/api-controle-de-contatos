@@ -1,0 +1,60 @@
+package br.com.hcm.ApiRestControleDeContatos.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.hcm.ApiRestControleDeContatos.enums.TipoContato;
+import br.com.hcm.ApiRestControleDeContatos.exception.NullException;
+import br.com.hcm.ApiRestControleDeContatos.model.Contatos;
+import br.com.hcm.ApiRestControleDeContatos.repository.ContatoRepository;
+
+@Service
+public class ContatoService {
+
+	@Autowired
+	private ContatoRepository contatoRepository;
+
+	// CREATE
+	public Contatos save(Contatos contato) {
+		
+		if (contato.getTipoContato() == null)
+			throw new NullException("tipo contato não pode ser nulo!");
+		else if (!contato.getTipoContato().equals("CELULAR") || !contato.getTipoContato().equals("TELEFONE"))
+			throw new NullException("tipo contato deve ser CELULAR ou TELEFONE");
+		
+		return contatoRepository.save(contato);
+	}
+
+	// READ
+	public List<Contatos> findAll(Long id) {
+		return contatoRepository.findByPessoaId(id);
+	}
+
+	// READ
+	public Optional<Contatos> findById(Long id) {
+		return contatoRepository.findById(id);
+	}
+
+	// UPDATE
+	public Contatos update(Contatos contato) {
+
+		Optional<Contatos> findContato = contatoRepository.findById(contato.getId());
+		if (findContato.isPresent()) {
+			Contatos updContato = findContato.get();
+			updContato.setTipoContato(contato.getTipoContato());
+			updContato.setContato(contato.getContato());
+			updContato.setPessoa(contato.getPessoa());
+
+			return contatoRepository.save(updContato);
+		}
+		return contatoRepository.save(contato);
+	}
+
+	// DELETE
+	public void delete(Long id) {
+		contatoRepository.deleteById(id);
+	}
+}

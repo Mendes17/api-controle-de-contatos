@@ -1,0 +1,26 @@
+package br.com.hcm.ApiRestControleDeContatos.config;
+
+public class SwaggerExamples {
+
+	public static final String POST_PESSOA_EXAMPLE = "{" // exemplo json post-pessoa
+            + "\"nome\": \"Henrique\", "
+            + "\"endereco\": \"Rua das Flores, 555\", "
+            + "\"cep\": \"05050-555\", "
+            + "\"cidade\": \"Osasco\", "
+            + "\"uf\": \"SP\""
+            + "}";
+	
+	public static final String POST_200_PESSOA_EXAMPLE = "{" // exemplo json erro 200 post-pessoa
+			+ "\"id\": 1, "
+            + "\"nome\": \"Henrique\", "
+            + "\"endereco\": \"Rua das Flores, 555\", "
+            + "\"cep\": \"05050-555\", "
+            + "\"cidade\": \"Osasco\", "
+            + "\"uf\": \"SP\""
+            + "}";
+	
+	public static final String POST_400_PESSOA_EXAMPLE = "{" // exemplo json erro 400 post-pessoa
+            + "\"status\": \"BAD_REQUEST\", "
+            + "\"message\": \"Nome não pode ser nulo!\"}";
+	
+}

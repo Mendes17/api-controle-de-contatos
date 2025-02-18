@@ -1,0 +1,64 @@
+package br.com.hcm.ApiRestControleDeContatos.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.hcm.ApiRestControleDeContatos.model.Pessoas;
+import br.com.hcm.ApiRestControleDeContatos.repository.ContatoRepository;
+import br.com.hcm.ApiRestControleDeContatos.repository.PessoaRepository;
+
+@Service
+public class PessoaService {
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+	// CREATE
+	public Pessoas save(Pessoas pessoa) {
+		if(pessoa.getNome() == null) {
+			System.out.println("Deve conter nome");
+			return null;
+		}
+		try {
+			return pessoaRepository.save(pessoa);
+		} catch(Exception e) {
+			System.out.println("Erro ao salvar pessoa: " + pessoa.toString() + ": " +  e.getMessage());
+			return null;
+		}
+	}
+	
+	// READ
+	public List<Pessoas> findAll() { // Mostra todas as pessoas
+		return pessoaRepository.findAll();
+	}
+	// READ
+	public Optional<Pessoas> findById(Long id) { // Mostra uma pessoa específica 
+		return pessoaRepository.findById(id);
+	}
+	
+	// UPDATE
+	public Pessoas update(Pessoas pessoa) {
+		Optional<Pessoas> findPessoa = pessoaRepository.findById(pessoa.getId());
+		
+		if(findPessoa.isPresent()) { // verifica se a "Pessoa" existe
+			Pessoas updPessoa = findPessoa.get();
+			updPessoa.setNome(pessoa.getNome());
+			updPessoa.setEndereco(pessoa.getEndereco());
+			updPessoa.setCep(pessoa.getCep());
+			updPessoa.setCidade(pessoa.getCidade());
+			updPessoa.setUf(pessoa.getUf());
+			updPessoa.setContato(pessoa.getContato());
+			return pessoaRepository.save(updPessoa); // atualiza
+		}
+		return pessoaRepository.save(pessoa); // se não existir, cria
+	}
+	
+	// DELETE
+	public void delete(Long id) { // deleta os dados da pessoa pelo o id fornecido
+		pessoaRepository.deleteById(id);
+	}
+	
+}

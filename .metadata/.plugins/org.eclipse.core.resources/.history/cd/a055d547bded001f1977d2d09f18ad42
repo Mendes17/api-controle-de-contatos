@@ -1,0 +1,17 @@
+package br.com.hcm.ApiRestControleDeContatos.config;
+
+public class SwaggerExamples {
+
+	public static final String POST_PESSOA_EXAMPLE = "{"
+            + "\"nome\": \"Henrique\", "
+            + "\"endereco\": \"Rua das Flores, 555\", "
+            + "\"cep\": \"05050-555\", "
+            + "\"cidade\": \"Osasco\", "
+            + "\"uf\": \"SP\""
+            + "}";
+	
+	public static final String POST_400_PESSOA_EXAMPLE = "{"
+            + "\"status\": \"BAD_REQUEST\", "
+            + "\"message\": \"Nome não pode ser nulo!\"}";
+	
+}

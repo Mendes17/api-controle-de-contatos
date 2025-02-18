@@ -1,0 +1,9 @@
+package br.com.hcm.ApiRestControleDeContatos.exception;
+
+public class NullException extends IllegalArgumentException {
+
+	public NullException(String text) { super(text + " não pode ser nulo!"); }
+	
+	public NullException(String message) { super(message); }
+	
+}

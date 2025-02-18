@@ -1,0 +1,5 @@
+package br.com.hcm.ApiRestControleDeContatos.config;
+
+public class SwaggerExamples {
+
+}

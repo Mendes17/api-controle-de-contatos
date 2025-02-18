@@ -1,0 +1,9 @@
+package br.com.hcm.ApiRestControleDeContatos.exception;
+
+public class EntityException extends IllegalArgumentException {
+	
+	public EntityException() { super("id não encontrado!"); }
+	
+	public EntityException(String message) { super(message); }
+	 
+}

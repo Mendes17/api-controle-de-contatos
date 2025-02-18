@@ -1,0 +1,12 @@
+package br.com.hcm.ApiRestControleDeContatos.example;
+
+public class ContatoSwaggerExample {
+	
+	public static final String POST_CONTATO_EXAMPLE = "{"
+            + "\"tipoContato\": \"CELULAR\", "
+            + "\"contato\": \"11 9865-8220\", "
+            + "\"pessoa\": {\"id\": 1}"
+            + "}";
+	
+	
+}

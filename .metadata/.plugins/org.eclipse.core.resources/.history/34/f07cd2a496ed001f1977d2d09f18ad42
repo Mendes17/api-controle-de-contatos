@@ -1,0 +1,65 @@
+package br.com.hcm.ApiRestControleDeContatos.controller;
+
+import java.util.List;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.hcm.ApiRestControleDeContatos.model.Contatos;
+import br.com.hcm.ApiRestControleDeContatos.service.ContatoService;
+import io.swagger.v3.oas.annotations.Operation;
+
+@RestController
+@RequestMapping("/api/contatos")
+public class ContatoController {
+
+	@Autowired
+	private ContatoService contatoService;
+
+	@Operation(summary = "Este endpoint adiciona um novo contato a uma Pessoa")
+	@PostMapping // POST http://localhost:8080/api/contatos
+	public ResponseEntity<Contatos> save(@RequestBody Contatos contato) {
+		Contatos newContato = contatoService.save(contato);
+		return ResponseEntity.ok(newContato);
+	}
+
+	@Operation(summary = "Este endpoint retorna os dados de um Contato por ID")
+	@GetMapping("/{id}") // GET http://localhost:8080/api/contatos/{id}
+	public ResponseEntity<Optional<Contatos>> findById(@PathVariable Long id) {
+		Optional<Contatos> contato = contatoService.findById(id);
+		return ResponseEntity.ok(contato);
+	}
+
+	@Operation(summary = "Este endpoint retorna uma lista de todos os Contatos de uma Pessoa")
+	@GetMapping("/pessoa/{id}") // GET http://localhost:8080/api/contatos/pessoa/{id}
+	public ResponseEntity<List<Contatos>> findByIdPerson(@PathVariable Long id) {
+		List<Contatos> contatos = contatoService.findAll(id);
+		return ResponseEntity.ok(contatos);
+	}
+
+	@Operation(summary = "Este endpoint atualiza um contato existente (deve ser informado o ID do contato que será atualizado!)")
+	@PutMapping("/{id}") // PUT http://localhost:8080/api/contatos/{id}
+	public ResponseEntity<Contatos> update(@PathVariable Long id, @RequestBody Contatos contato) {
+		contato.setId(id);
+		Contatos upContato = contatoService.update(contato);
+		return ResponseEntity.ok(upContato);
+	}
+
+	@Operation(summary = "Este endpoint remove um contato pelo o ID")
+	@DeleteMapping("/{id}") // DELETE http://localhost:8080/api/contatos/{id}
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		contatoService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+
+}

@@ -102,8 +102,7 @@ public class Pessoas {
 		return uf;
 	}
 
-	public void setUf(String uf) { // a Unidade Federal que a pessoa mora é representado por 2 letras, ex("SP",
-									// "MG", "BA"...)
+	public void setUf(String uf) {
 		this.uf = uf;
 	}
 

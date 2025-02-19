@@ -3,6 +3,8 @@
 ## 📖 Sobre o Projeto
 Este projeto consiste em uma API Rest desenvolvida em **Java com Spring Boot** para gerenciar um sistema de **cadastro de Pessoas e seus respectivos Contatos**. Cada pessoa pode ter múltiplos contatos, e a API oferece operações CRUD completas para ambas as entidades.
 
+📌 **Este projeto foi desenvolvido como parte do processo seletivo da Minsait.**  
+
 ## 🚀 Tecnologias Utilizadas
 
 - **Java 21**
@@ -54,13 +56,13 @@ Este projeto consiste em uma API Rest desenvolvida em **Java com Spring Boot** p
 - CEP (Opcional)
 - Cidade (Opcional)
 - UF (Opcional)
-- Relacionamento OneToMay
+- Relacionamento (OneToMany)
 
 ### **Contato**
 - ID (Único, não nulo)
-- Tipo de Contato (0 = TELEFONE, 1 = CELULAR, EMAIL = 2)
+- Tipo de Contato (TELEFONE, CELULAR, EMAIL)
 - Contato (Obrigatório)
-- Relacionamento ManyToOne
+- Relacionamento (ManyToOne)
 
 ### 🚀 **Rodando a Aplicação**
 ```bash
@@ -85,6 +87,6 @@ http://localhost:8080/swagger-ui.html
 ## 📩 Contato
 Desenvolvido por **Henrique Cerqueira Mendes** Full Stack Developer 🧑‍💻
 
-📧 Email: [email](henrique.cerqueira.mendes@gmail.com)
-🔗 LinkedIn: [linkedin](www.linkedin.com/in/henrique-cerqueira-mendes-149503270)
+📧 Email: [henrique.cerqueira.mendes@gmail.com](henrique.cerqueira.mendes@gmail.com)
+🔗 LinkedIn: [www.linkedin.com/in/henrique-cerqueira-mendes-149503270](www.linkedin.com/in/henrique-cerqueira-mendes-149503270)
 

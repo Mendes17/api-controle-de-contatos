@@ -9,6 +9,7 @@ Este projeto consiste em uma API Rest desenvolvida em **Java com Spring Boot** p
 
 - **Java 21**
 - **Spring Boot 3.4.2**
+- **Maven 3.9.9**
 - **JPA / Hibernate**
 - **Banco de Dados:** H2 (Banco em memória)
 - **Swagger (OpenAPI)** para documentação

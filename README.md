@@ -76,7 +76,9 @@ $ mvn spring-boot:run
 Ou então abra na IDE de sua escolha e execute a aplicação
 ```
 
-A API estará disponível em `http://localhost:8080`
+A API estará disponível em `http://localhost:8080/h2-console`
+JDBC URL: `jdbc:h2:mem:controle`
+User Name: `sa`
 
 ## 📜 Documentação com Swagger
 Após rodar a aplicação, acesse a documentação do Swagger no endereço:

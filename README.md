@@ -3,7 +3,7 @@
 ## 📖 Sobre o Projeto
 Este projeto consiste em uma API Rest desenvolvida em **Java com Spring Boot** para gerenciar um sistema de **cadastro de Pessoas e seus respectivos Contatos**. Cada pessoa pode ter múltiplos contatos, e a API oferece operações CRUD completas para ambas as entidades.
 
-📌 **Este projeto foi desenvolvido como parte do processo seletivo da Minsait.**  
+📌 **Este projeto foi desenvolvido como parte do processo seletivo da empresa Minsait.**  
 
 ## 🚀 Tecnologias Utilizadas
 

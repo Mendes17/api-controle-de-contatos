@@ -69,14 +69,17 @@ public class ContatoController {
 	// GET-CONTATO-PESSOA-ID --------------
 	@Operation(summary = "Este endpoint retorna uma lista de todos os Contatos de uma Pessoa")
 	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucesso GET-CONTATO-PESSOA-ID", content = @Content(mediaType = "application/json", examples = {
+					@ExampleObject( // exemplo json post-contato
+							name = "Response 200", value = ContatoSwaggerExample.GET_200_CONTATO_PESSOA_ID_EXAMPLE) })),
 			@ApiResponse(responseCode = "400", description = "Caso contato seja nulo", content = @Content(mediaType = "application/json", examples = {
 					@ExampleObject( // exemplo json erro 400
 							name = "Response 400", value = ContatoSwaggerExample.ERRO_400_CONTATO_EXAMPLE) })),
 			@ApiResponse(responseCode = "404", description = "Existem dois tipo de 404 ('id-não-encontrado' e 'nenhum-tipo-de-contato')", content = @Content(mediaType = "application/json", examples = {
 					@ExampleObject( // exemplo json erro 404
-							name = "Erro 404 - id não encontrado", value = ContatoSwaggerExample.ERRO_404_CONTATO_EXAMPLE),
+							name = "Response 404 - id não encontrado", value = ContatoSwaggerExample.ERRO_404_CONTATO_EXAMPLE),
 					@ExampleObject( // exemplo json erro 404
-							name = "Erro 404 - nenhum tipo de contato", value = ContatoSwaggerExample.ERRO_404_CONTATO_PESSOA_EXAMPLE) })) })
+							name = "Response 404 - nenhum tipo de contato", value = ContatoSwaggerExample.ERRO_404_CONTATO_PESSOA_EXAMPLE) })) })
 	@GetMapping("/pessoa/{id}") // GET http://localhost:8080/api/contatos/pessoa/{id}
 	public ResponseEntity<List<Contatos>> findByIdPerson(@PathVariable Long id) {
 		List<Contatos> contatos = contatoService.findAll(id);
@@ -86,16 +89,16 @@ public class ContatoController {
 	// PUT-CONTATO ----------------------
 	@Operation(summary = "Este endpoint atualiza um contato existente (deve ser informado o ID do contato que será atualizado!)", requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json", examples = {
 			@ExampleObject( // exemplo json put-contato
-					name = "Exemplo PUT-CONTATO", value = ContatoSwaggerExample.PUT_CONTATO_EXAMPLE) })))
+					name = "JSON PUT-CONTATO", value = ContatoSwaggerExample.PUT_CONTATO_EXAMPLE) })))
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "400", description = "Existem dois tipo de erro 400 ('contato-nulo' e 'tipo-contato-nulo')", content = @Content(mediaType = "application/json", examples = {
 					@ExampleObject( // exemplo json erro 400
-							name = "Erro 400 - tipo do contato nulo", value = ContatoSwaggerExample.ERRO_400_TIPO_CONTATO_EXAMPLE),
+							name = "Response 400 - tipo do contato nulo", value = ContatoSwaggerExample.ERRO_400_TIPO_CONTATO_EXAMPLE),
 					@ExampleObject( // exemplo json erro 400
-							name = "Erro 400 - contato nulo", value = ContatoSwaggerExample.ERRO_400_CONTATO_EXAMPLE) })),
-			@ApiResponse(responseCode = "404", description = "Caso o id não seja encontrado", content = @Content(mediaType = "application/json", examples = {
+							name = "Response 400 - contato nulo", value = ContatoSwaggerExample.ERRO_400_CONTATO_EXAMPLE) })),
+			@ApiResponse(responseCode = "404", description = "Id não encontrado", content = @Content(mediaType = "application/json", examples = {
 					@ExampleObject( // exemplo json erro 404
-							name = "Erro 404", value = ContatoSwaggerExample.ERRO_404_CONTATO_EXAMPLE) }))
+							name = "Response 404", value = ContatoSwaggerExample.ERRO_404_CONTATO_EXAMPLE) }))
 
 	})
 	@PutMapping("/{id}") // PUT http://localhost:8080/api/contatos/{id}
@@ -107,10 +110,10 @@ public class ContatoController {
 
 	// DELETE - CONTATO ----------------------
 	@Operation(summary = "Este endpoint remove um contato pelo o ID")
-	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Sucesso"),
-			@ApiResponse(responseCode = "404", description = "Caso o id não seja encontrado", content = @Content(mediaType = "application/json", examples = {
+	@ApiResponses(value = { @ApiResponse(responseCode = "204", description = "Sucesso DELETE-CONTATO"),
+			@ApiResponse(responseCode = "404", description = "Id não encontrado", content = @Content(mediaType = "application/json", examples = {
 					@ExampleObject( // exemplo json erro 404
-							name = "Erro 404", value = ContatoSwaggerExample.ERRO_404_CONTATO_EXAMPLE) })) })
+							name = "Response 404", value = ContatoSwaggerExample.ERRO_404_CONTATO_EXAMPLE) })) })
 	@DeleteMapping("/{id}") // DELETE http://localhost:8080/api/contatos/{id}
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		contatoService.delete(id);

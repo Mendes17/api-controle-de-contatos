@@ -18,6 +18,6 @@ public class OpenApiConfig {
 						new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
 				.info(new Info().title("API de Controle de Contatos").description(
 						"Esta é uma API RESTful que foi desenvolvida em Java e Spring Boot, permite gerenciar o cadastro de Pessoas e seus respectivos Contatos. Cada pessoa pode ter vários contatos (TELEFONE, CELULAR ou EMAIL), a API oferece operações CRUD(CREATE, READ, UPDATE e DELETE) para ambas entidades (Pessoas e Contatos)")
-						.contact(new Contact().name("Nome").email("Email").url("URL")).version("v1.0.0"));
+						.contact(new Contact().name("Nome").email("Email").url("URL")).version("v1.0.1"));
 	}
 }

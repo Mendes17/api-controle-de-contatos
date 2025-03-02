@@ -2,9 +2,9 @@ package br.com.hcm.ApiRestControleDeContatos.model;
 
 import java.util.List;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,8 +37,8 @@ public class Pessoas {
 	@Column
 	private String uf;
 
-	@OneToMany(mappedBy = "pessoa") // uma pessoa para varios contatos e (mappedBy) para não gerar outra tabela
-									// automaticamente no H2
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true) // uma pessoa para varios contatos e (mappedBy) para não gerar outra tabela
+								// automaticamente no H2
 	@JsonIgnore
 	private List<Contatos> contato;
 

@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.hcm.ApiRestControleDeContatos.dto.PessoaDto;
 import br.com.hcm.ApiRestControleDeContatos.exception.EntityException;
 import br.com.hcm.ApiRestControleDeContatos.exception.NullException;
+import br.com.hcm.ApiRestControleDeContatos.model.Contatos;
 import br.com.hcm.ApiRestControleDeContatos.model.Pessoas;
 import br.com.hcm.ApiRestControleDeContatos.repository.PessoaRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PessoaService {
@@ -63,10 +65,11 @@ public class PessoaService {
 	}
 
 	// UPDATE
+	@Transactional
 	public Pessoas update(Pessoas pessoa) {
 		Optional<Pessoas> findPessoa = pessoaRepository.findById(pessoa.getId());
 
-		if (findPessoa.isEmpty()) // verifica se a pessoa
+		if (findPessoa.isEmpty()) // verifica se a pessoa existe
 			throw new EntityException();
 		if (pessoa.getNome() == null)
 			throw new NullException("Nome não pode ser nulo!");
@@ -77,8 +80,20 @@ public class PessoaService {
 		updPessoa.setCep(pessoa.getCep());
 		updPessoa.setCidade(pessoa.getCidade());
 		updPessoa.setUf(pessoa.getUf());
-		updPessoa.setContato(pessoa.getContato());
-		return pessoaRepository.save(updPessoa); // se existir, atualiza
+
+		// Atualiza a lista de Contatos
+		if (pessoa.getContato() != null) {
+			// Remove os Contatos antigos
+			updPessoa.getContato().clear();
+
+			// Adiciona os novos Contatos
+			for (Contatos contato : pessoa.getContato()) {
+				contato.setPessoa(updPessoa); // Define a Pessoa no Contato
+				updPessoa.getContato().add(contato);
+			}
+		}
+		
+		return pessoaRepository.save(updPessoa);
 	}
 
 	// DELETE

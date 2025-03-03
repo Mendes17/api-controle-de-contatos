@@ -115,7 +115,7 @@ Banco de dados H2
 🚀 Rodando a Aplicação
 
 # Clone este repositório
-$ git clone [ https://github.com/seu-usuario/seu-projeto.git](https://github.com/Mendes17/api-controle-de-contatos.git)
+$ git clone [https://github.com/Mendes17/api-controle-de-contatos.git](https://github.com/Mendes17/api-controle-de-contatos.git)
 
 # Acesse a pasta do projeto
 $ cd seu-projeto

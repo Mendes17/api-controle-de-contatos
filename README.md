@@ -8,7 +8,7 @@ Este projeto consiste em uma API Rest desenvolvida em Java com Spring Boot para 
 
 🚀 Tecnologias Utilizadas
 
-Java 17+
+Java 21
 
 Spring Boot 3.4.2
 
